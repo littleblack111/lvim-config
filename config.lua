@@ -113,6 +113,6 @@ vim.api.nvim_set_keymap('i', '<C-H>', '<C-w>', { noremap = true })
 
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
-vim.o.noexpandtab = true
+-- vim.o.noexpandtab = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
