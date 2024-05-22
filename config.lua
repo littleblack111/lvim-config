@@ -107,7 +107,8 @@ lvim.swapfile = false
 
 lvim.ignorecase = true
 lvim.keys.normal_mode["<leader>,"] = ":lua vim.lsp.buf.code_action()<CR>"
-vim.api.nvim_set_keymap('i', '<C-H>', '<C-w>', { noremap = true })
+vim.api.nvim_set_keymap('i', '<C-BS>', '<C-w>', { noremap = true })
+--vim.api.nvim_set_keymap('i', '<C-w>', '<C-o>db', { noremap = true })
 
 
 
