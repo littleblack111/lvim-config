@@ -110,6 +110,11 @@ lvim.keys.normal_mode["<leader>,"] = ":lua vim.lsp.buf.code_action()<CR>"
 lvim.keys.insert_mode['<C-BS>'] = "<C-w>"
 --vim.api.nvim_set_keymap('i', '<C-w>', '<C-o>db', { noremap = true })
 
+-- lvim.builtin.which_key.mappings['<Tab>'] = {}
+lvim.builtin.cmp.mapping['<Tab>'] = {}
+lvim.builtin.cmp.mapping['<S-Tab>'] = {}
+lvim.builtin.cmp.mapping['<C-Space>'] = {}
+lvim.builtin.cmp.mapping['C-y'] = {}
 
 
 vim.o.tabstop = 4
