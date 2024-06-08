@@ -98,6 +98,17 @@ lvim.plugins = {
     { "CRAG666/code_runner.nvim", config = true },
 }
 
+vim.api.nvim_create_autocmd('BufReadPost', {
+  callback = function(args)
+    local valid_line = vim.fn.line([['"]]) >= 1 and vim.fn.line([['"]]) < vim.fn.line('$')
+    local not_commit = vim.b[args.buf].filetype ~= 'commit'
+
+    if valid_line and not_commit then
+      vim.cmd([[normal! g`"]])
+    end
+  end,
+})
+
 lvim.keys.normal_mode["<leader>r"] = ":RunFile<CR>"
 lvim.keys.normal_mode["<leader>sr"] = ":'<,'>SnipRun<CR>"
 
