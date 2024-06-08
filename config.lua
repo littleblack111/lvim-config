@@ -97,6 +97,19 @@ lvim.plugins = {
         end
     },
     { "CRAG666/code_runner.nvim", config = true },
+    {
+        'echasnovski/mini.nvim', version = '*',
+        config = function()
+            local animate = require('mini.animate')
+            animate.setup({
+                cursor = {
+                    timing = animate.gen_timing.linear({ duration = 100, unit='total' }),
+                },
+                scroll = { enable = false }
+            })
+
+        end
+    },
 }
 
 lvim.autocommands = {
