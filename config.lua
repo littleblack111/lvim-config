@@ -131,20 +131,20 @@ lvim.autocommands = {
 lvim.keys.normal_mode["<leader>r"] = ":RunFile<CR>"
 lvim.keys.normal_mode["<leader>sr"] = ":'<,'>SnipRun<CR>"
 
-lvim.keys.normal_mode["<leader>,"] = vim.lsp.buf.code_action()
--- lvim.keys.normal_mode["<C-f>"] = vim.lsp.buf.
+lvim.keys.normal_mode["<leader>,"] = ":lua vim.lsp.buf.code_action()<CR>"
+lvim.keys.normal_mode["<C-f>"] = false
 lvim.swapfile = false
 
 lvim.ignorecase = true
+lvim.keys.normal_mode["<leader>,"] = ":lua vim.lsp.buf.code_action()<CR>"
 lvim.keys.insert_mode['<C-BS>'] = "<C-w>"
 --vim.api.nvim_set_keymap('i', '<C-w>', '<C-o>db', { noremap = true })
 
 -- lvim.builtin.which_key.mappings['<Tab>'] = {}
--- lvim.builtin.cmp.mapping['<Tab>'] = {}
+lvim.builtin.cmp.mapping['<Tab>'] = {}
 lvim.builtin.cmp.mapping['<S-Tab>'] = {}
 lvim.builtin.cmp.mapping['<C-Space>'] = {}
--- confirm lsp
--- lvim.builtin.cmp.mapping['C-y'] = 
+lvim.builtin.cmp.mapping['C-y'] = {}
 
 
 vim.o.tabstop = 4
