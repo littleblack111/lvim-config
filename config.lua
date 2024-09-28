@@ -110,6 +110,10 @@ lvim.plugins = {
 
         end
     },
+    {
+        'wakatime/vim-wakatime',
+        lazy = false,
+    }
 }
 
 lvim.autocommands = {
