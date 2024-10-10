@@ -145,10 +145,39 @@ lvim.keys.insert_mode['<C-BS>'] = "<C-w>"
 --vim.api.nvim_set_keymap('i', '<C-w>', '<C-o>db', { noremap = true })
 
 -- lvim.builtin.which_key.mappings['<Tab>'] = {}
-lvim.builtin.cmp.mapping['<Tab>'] = {}
-lvim.builtin.cmp.mapping['<S-Tab>'] = {}
-lvim.builtin.cmp.mapping['<C-Space>'] = {}
-lvim.builtin.cmp.mapping['C-y'] = {}
+-- lvim.builtin.cmp.mapping['<Tab>'] = {}
+local cmp = require("cmp")
+local jumpable = require("lvim.core.cmp").methods.jumpable
+local luasnip = require("luasnip")
+lvim.builtin.cmp.mapping = cmp.mapping.preset.insert({
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-j>'] = cmp.mapping.select_next_item(),
+    ['<C-k>'] = cmp.mapping.select_prev_item(),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
+        if jumpable(-1) then
+          luasnip.jump(-1)
+        else
+          fallback()
+        end
+      end, {
+        "i",
+        "s",
+      }),
+      ["<C-f>"] = cmp.mapping(function(fallback)
+        if luasnip.expand_or_locally_jumpable() then
+          luasnip.jump(1)
+        else
+          fallback()
+        end
+      end, {
+        "i",
+        "s",
+      }),
+})
+-- lvim.builtin.cmp.mapping['<C-Space>'] = {}
+-- lvim.builtin.cmp.mapping['C-y'] = {}
+lvim.builtin.cmp.mapping['<Down>'] = {}
+lvim.builtin.cmp.mapping['<Up>'] = {}
 
 
 vim.o.tabstop = 4
@@ -158,5 +187,4 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.relativenumber = true
 vim.opt.clipboard = "unnamedplus"
-
 
