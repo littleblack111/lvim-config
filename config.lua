@@ -244,6 +244,20 @@ lvim.keys.normal_mode["<leader>,"] = ":lua vim.lsp.buf.code_action()<CR>"
 lvim.keys.normal_mode["<C-f>"] = false
 lvim.keys.normal_mode["<leader>,"] = ":lua vim.lsp.buf.code_action()<CR>"
 lvim.keys.insert_mode['<C-BS>'] = "<C-w>"
+-- tabs
+lvim.keys.normal_mode["<leader>1"] = ":BufferLineGoToBuffer 1<CR>"
+lvim.keys.normal_mode["<leader>2"] = ":BufferLineGoToBuffer 2<CR>"
+lvim.keys.normal_mode["<leader>3"] = ":BufferLineGoToBuffer 3<CR>"
+lvim.keys.normal_mode["<leader>4"] = ":BufferLineGoToBuffer 4<CR>"
+lvim.keys.normal_mode["<leader>5"] = ":BufferLineGoToBuffer 5<CR>"
+lvim.keys.normal_mode["<leader>6"] = ":BufferLineGoToBuffer 6<CR>"
+lvim.keys.normal_mode["<leader>7"] = ":BufferLineGoToBuffer 7<CR>"
+lvim.keys.normal_mode["<leader>8"] = ":BufferLineGoToBuffer 8<CR>"
+lvim.keys.normal_mode["<leader>9"] = ":BufferLineGoToBuffer 9<CR>"
+lvim.keys.normal_mode["<leader>0"] = ":BufferLineGoToBuffer 10<CR>"
+
+-- undo tabs
+lvim.keys.insert_mode["<S-Tab>"] = "<C-d>"
 
 -- options
 lvim.swapfile = false
