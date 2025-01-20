@@ -118,7 +118,7 @@ lvim.plugins = {
         priority = 1000,
         lazy = false,
         opts = {
-            bigfile = { enabled = true },
+            -- bigfile = { enabled = true },
             dashboard = { enabled = true },
             indent = { enabled = true },
             input = { enabled = true },
@@ -130,8 +130,6 @@ lvim.plugins = {
                 timeout = 3000,
             },
             quickfile = { enabled = true },
-            statuscolumn = { enabled = true },
-            words = { enabled = true },
             styles = {
                 notification = {
                     wo = { wrap = true }
@@ -217,13 +215,58 @@ lvim.plugins = {
         config = function()
             require("lsp_lines").setup()
         end,
+    },
+    {
+        'akinsho/git-conflict.nvim',
+        version = "*",
+        config = true
+    },
+    {
+        "CopilotC-Nvim/CopilotChat.nvim",
+        dependencies = {
+            { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+            { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+        },
+        build = "make tiktoken", -- Only on MacOS or Linux
+        opts = {
+            -- See Configuration section for options
+            model = "gpt-4-0125-preview",
+            window = {
+                layout = "float",
+                relative = 'cursor',
+                width = 1,
+                height = 0.4,
+                row = 1
+            },
+        },
+        -- See Commands section for default commands if you want to lazy load on them
+    },
+    {
+        'MeanderingProgrammer/render-markdown.nvim',
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+        ---@module 'render-markdown'
+        ---@type render.md.UserConfig
+        opts = {},
+    },
+    {
+        '3rd/image.nvim',
+        dependencies = { "kiyoon/magick.nvim" },
+        build = false,
+        opts = {
+            integrations = {
+                html = { enabled = true },
+                css = { enabled = true },
+            },
+
+        }
     }
 }
 
 lvim.autocommands = {
     {
-        "BufReadPost",
-        {
+        "BufReadPost", {
             callback = function(args)
                 local valid_line = vim.fn.line([['"]]) >= 1 and vim.fn.line([['"]]) < vim.fn.line('$')
                 local not_commit = vim.b[args.buf].filetype ~= 'commit'
@@ -239,7 +282,7 @@ lvim.autocommands = {
 -- keybinds
 lvim.keys.normal_mode["<leader>r"] = ":RunFile<CR>"
 lvim.keys.normal_mode["<leader>sr"] = ":'<,'>SnipRun<CR>"
-vim.api.nvim_set_keymap("n", "<leader>nn", ":Noice dismiss<CR>", { noremap = true })
+lvim.keys.normal_mode["<leader>nn"] = ":Noice dismiss<CR>"
 lvim.keys.normal_mode["<leader>,"] = ":lua vim.lsp.buf.code_action()<CR>"
 lvim.keys.normal_mode["<C-f>"] = false
 lvim.keys.normal_mode["<leader>,"] = ":lua vim.lsp.buf.code_action()<CR>"
@@ -272,3 +315,6 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.relativenumber = true
 vim.opt.clipboard = "unnamedplus"
+
+-- alias(cnoreabbrev)
+vim.api.nvim_command("cnoreabbrev coc CopilotChat")
