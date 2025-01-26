@@ -230,7 +230,7 @@ lvim.plugins = {
         build = "make tiktoken", -- Only on MacOS or Linux
         opts = {
             -- See Configuration section for options
-            model = "gpt-4-0125-preview",
+            model = "claude-3.5-sonnet",
             window = {
                 layout = "float",
                 relative = 'cursor',
@@ -261,6 +261,22 @@ lvim.plugins = {
             },
 
         }
+    },
+    {
+        'windwp/nvim-ts-autotag',
+        -- opts = {}
+        -- opts = {
+        --     enable_close = false,
+        --     enable_close_on_slash = true,
+        -- }
+        config = function()
+            require('nvim-ts-autotag').setup({
+                opts = {
+                    -- enable_close = false,
+                    enable_close_on_slash = true,
+                }
+            })
+        end
     }
 }
 
@@ -309,12 +325,14 @@ lvim.ignorecase = true
 vim.diagnostic.config({
     virtual_text = false,
 })
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
+-- vim.o.tabstop = 4
+-- vim.o.shiftwidth = 4
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.relativenumber = true
-vim.opt.clipboard = "unnamedplus"
+vim.o.clipboard = "unnamedplus"
+vim.o.expandtab = true
 
 -- alias(cnoreabbrev)
 vim.api.nvim_command("cnoreabbrev coc CopilotChat")
+
