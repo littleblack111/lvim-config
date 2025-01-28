@@ -221,26 +221,79 @@ lvim.plugins = {
         version = "*",
         config = true
     },
-    {
-        "CopilotC-Nvim/CopilotChat.nvim",
-        dependencies = {
-            { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
-            { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+    -- {
+    --     "CopilotC-Nvim/CopilotChat.nvim",
+    --     dependencies = {
+    --         { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+    --         { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+    --     },
+    --     build = "make tiktoken", -- Only on MacOS or Linux
+    --     opts = {
+    --         -- See Configuration section for options
+    --         model = "claude-3.5-sonnet",
+    --         window = {
+    --             layout = "float",
+    --             relative = 'cursor',
+    --             width = 1,
+    --             height = 0.4,
+    --             row = 1
+    --         },
+    --     },
+    --     -- See Commands section for default commands if you want to lazy load on them
+    -- },
+  {
+    "yetone/avante.nvim",
+    event = "VeryLazy",
+    lazy = false,
+    version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
+    opts = {
+        provider = "copilot",
+        copilot = {
+          model = "claude-3.5-sonnet",
         },
-        build = "make tiktoken", -- Only on MacOS or Linux
-        opts = {
-            -- See Configuration section for options
-            model = "claude-3.5-sonnet",
-            window = {
-                layout = "float",
-                relative = 'cursor',
-                width = 1,
-                height = 0.4,
-                row = 1
-            },
+        behaviour = {
+          auto_suggestions = true
         },
-        -- See Commands section for default commands if you want to lazy load on them
+        hints = { enabled = false },
     },
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    build = "make",
+    dependencies = {
+      "stevearc/dressing.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      --- The below dependencies are optional,
+      "echasnovski/mini.pick", -- for file_selector provider mini.pick
+      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+      "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+      "ibhagwan/fzf-lua", -- for file_selector provider fzf
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua", -- for providers='copilot'
+      {
+        -- support for image pasting
+        "HakonHarnes/img-clip.nvim",
+        event = "VeryLazy",
+        opts = {
+          -- recommended settings
+          default = {
+            embed_image_as_base64 = true,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+          },
+        },
+      },
+    {
+      -- Make sure to set this up properly if you have lazy=true
+      'MeanderingProgrammer/render-markdown.nvim',
+      opts = {
+        file_types = { "markdown", "Avante" },
+      },
+      ft = { "markdown", "Avante" },
+    },
+  },
+},
     {
         'MeanderingProgrammer/render-markdown.nvim',
         dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
@@ -334,5 +387,5 @@ vim.o.clipboard = "unnamedplus"
 vim.o.expandtab = true
 
 -- alias(cnoreabbrev)
-vim.api.nvim_command("cnoreabbrev coc CopilotChat")
+-- vim.api.nvim_command("cnoreabbrev coc CopilotChat")
 
