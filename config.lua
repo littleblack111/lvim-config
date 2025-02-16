@@ -203,6 +203,11 @@ lvim.plugins = {
                       opts = { skip = true },
                   }
               },
+              lsp = {
+                signature = {
+                  enabled = false
+                }
+              }
           })
       end,
       dependencies = {
@@ -248,7 +253,7 @@ lvim.plugins = {
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
-    lazy = false,
+    lazy = true,
     version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
     opts = {
       provider = "copilot",
@@ -305,9 +310,10 @@ lvim.plugins = {
   {
     'echasnovski/mini.sessions',
     version = false,
-    -- opts = {
+    opts = {
+      autowrite = true,
       -- autoread = true,
-    -- }
+    }
   },
   {
       'MeanderingProgrammer/render-markdown.nvim',
@@ -320,6 +326,7 @@ lvim.plugins = {
   },
   {
       '3rd/image.nvim',
+      -- lazy = true,
       dependencies = { "kiyoon/magick.nvim" },
       build = false,
       opts = {
@@ -332,6 +339,7 @@ lvim.plugins = {
   },
   {
       'windwp/nvim-ts-autotag',
+      lazy = true,
       -- opts = {}
       -- opts = {
       --     enable_close = false,
@@ -360,8 +368,74 @@ lvim.plugins = {
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
     -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
     lazy = false,
+  },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "InsertEnter",
+    opts = {
+      bind = true,
+      handler_opts = {
+        border = "rounded"
+      },
+      hint_enable = false
+    },
+    config = function(_, opts) require'lsp_signature'.setup(opts) end
+  },
+  {
+    "bassamsdata/namu.nvim",
+    config = function()
+      require("namu").setup({
+        -- Enable the modules you want
+        namu_symbols = {
+          enable = true,
+          options = {}, -- here you can configure namu
+        },
+        -- Optional: Enable other modules if needed
+        colorscheme = {
+          enable = false,
+          options = {
+            -- NOTE: if you activate persist, then please remove any vim.cmd("colorscheme ...") in your config, no needed anymore
+            persist = true, -- very efficient mechanism to Remember selected colorscheme
+            write_shada = false, -- If you open multiple nvim instances, then probably you need to enable this
+          },
+        },
+        ui_select = { enable = false }, -- vim.ui.select() wrapper
+      })
+      -- === Suggested Keymaps: ===
+      local namu = require("namu.namu_symbols")
+      local colorscheme = require("namu.colorscheme")
+      vim.keymap.set("n", "<leader>ss",":Namu symbols<cr>" , {
+        desc = "Jump to LSP symbol",
+        silent = true,
+      })
+      vim.keymap.set("n", "<leader>th", ":Namu colorscheme<cr>", {
+        desc = "Colorscheme Picker",
+        silent = true,
+      })
+    end,
+  },
+  {
+    "max397574/better-escape.nvim",
+    config = function()
+      require("better_escape").setup()
+    end,
   }
 }
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local bufnr = args.buf
+    -- local client = vim.lsp.get_client_by_id(args.data.client_id)
+    -- if vim.tbl_contains({ 'null-ls' }, client.name) then  -- blacklist lsp
+    --   return
+    -- end
+    require("lsp_signature").on_attach({
+      handler_opts = {
+        border = "rounded"
+      }
+    }, bufnr)
+  end,
+})
 
 lvim.autocommands = {
   {
@@ -424,7 +498,7 @@ vim.o.smartcase = true
 vim.o.relativenumber = true
 vim.o.clipboard = "unnamedplus"
 vim.o.expandtab = true
-
-vim.opt.timeoutlen = 100
+vim.o.timeoutlen = 100
+-- vim.o.foldlevel = 99
 -- alias(cnoreabbrev)
 -- vim.api.nvim_command("cnoreabbrev coc CopilotChat")
