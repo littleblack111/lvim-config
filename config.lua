@@ -125,6 +125,7 @@ lvim.plugins = {
           dashboard = { enabled = true },
           indent = { enabled = true },
           input = { enabled = true },
+          image = { enabled = true },
           scroll = { enabled = true },
           statuscolumn = { enabled = true },
           words = { enabled = true },
@@ -324,22 +325,22 @@ lvim.plugins = {
       ---@type render.md.UserConfig
       opts = {},
   },
-  {
-      '3rd/image.nvim',
-      -- lazy = true,
-      dependencies = { "kiyoon/magick.nvim" },
-      build = false,
-      opts = {
-          integrations = {
-              html = { enabled = true },
-              css = { enabled = true },
-          },
+  -- {
+  --     '3rd/image.nvim',
+  --     -- lazy = true,
+  --     dependencies = { "kiyoon/magick.nvim" },
+  --     build = false,
+  --     opts = {
+  --         integrations = {
+  --             html = { enabled = true },
+  --             css = { enabled = true },
+  --         },
 
-      }
-  },
+  --     }
+  -- },
   {
       'windwp/nvim-ts-autotag',
-      lazy = true,
+      -- lazy = true,
       -- opts = {}
       -- opts = {
       --     enable_close = false,
