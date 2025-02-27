@@ -259,7 +259,7 @@ lvim.plugins = {
       provider = "copilot",
       auto_suggestions_provider = "copilot",
       copilot = {
-        model = "claude-3.5-sonnet",
+        model = "claude-3.7-sonnet",
       },
       behaviour = {
         auto_suggestions = true
@@ -374,6 +374,7 @@ lvim.plugins = {
     event = "InsertEnter",
     opts = {
       bind = true,
+      hint_prefix = false,
       handler_opts = {
         border = "rounded"
       },
@@ -430,9 +431,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
     --   return
     -- end
     require("lsp_signature").on_attach({
+      hint_prefix = false,
       handler_opts = {
         border = "rounded"
-      }
+      },
+      hint_enable = false
     }, bufnr)
   end,
 })
